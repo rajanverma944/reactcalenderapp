@@ -1,7 +1,7 @@
 import React from 'react';
 import Tabs from "./Components/Tabs";
 import Calender from "./Components/Calender";
-import { Grid, withStyles, Typography } from '@material-ui/core';
+import { Grid, withStyles, Typography, Chip } from '@material-ui/core';
 
 
 const style = {
@@ -20,24 +20,81 @@ const style = {
 class App extends React.Component {
   state = {
     selectedTab: 0,
+    isTodayAHoliday: false,
+    data: {}
   }
 
-  switchContent = (selectedTab) => this.setState({selectedTab});
+  switchContent = (selectedTab) => this.setState({ selectedTab });
 
-  getContent = () => this.state.selectedTab === 0 ? <Calender todayIsHoliday={this.todayIsHoliday}/>: <Calender invert todayIsHoliday={this.todayIsHoliday}/>
+  todayIsHoliday = (item) => {
+    if (!this.state.isTodayAHoliday)
+      this.setState((oldState) => ({ ...oldState, isTodayAHoliday: true, data: item }), () => console.log(this.state))
+  }
+
+  getHeading = () => {
+    if (this.state.isTodayAHoliday)
+      return (
+        <>
+          {
+
+            Object.keys(this.state.data).map((val, idx) => {
+              if (val === "date")
+                return (<></>);
+              return (
+
+                <>
+                  <Grid item md={9} lg={8} xs={12} key={idx}>
+                    <Typography variant={"h5"}>
+                      Hey, you got Holiday today.
+                    </Typography>
+                  </Grid>
+                  <Grid item md={9} lg={8} xs={12} key={idx}>
+                    <Typography variant={"h4"}>
+                      {this.state.data[val].name}
+                    </Typography>
+                  </Grid>
+                  <Grid item md={9} lg={8} xs={12} key={idx}>
+                    <Grid container alignItems={"center"} justify={"center"} spacing={40}>
+                      {this.state.data[val].type.map((val, idx) => (
+                        <>
+                          <Grid item key={idx}>
+                            <Chip label={val} color={"primary"} />
+                          </Grid>
+                        </>
+                      ))}
+                    </Grid>
+                  </Grid>
+                  <Grid item md={9} lg={8} xs={12} key={idx}>
+                    {this.state.data[val].description}
+                  </Grid>
+                </>
+
+              )
+            })
+
+
+          }
+        </>
+      )
+    else
+      return (
+        <Grid item lg={8} md={8} xs={12}>
+          <Typography variant={"h3"}>No Holiday Today</Typography>
+        </Grid>
+      )
+  }
+  getContent = () => this.state.selectedTab === 0 ? <Calender todayIsHoliday={this.todayIsHoliday} /> : <Calender invert todayIsHoliday={this.todayIsHoliday} />
 
   render() {
     const { classes } = this.props;
     return (
       <div className="App">
         <Grid container justify={"center"} alignItems={"center"} className={classes.center} spacing={40}>
-          <Grid item lg={8} md={8} xs={12}>
-            <Typography variant={"h3"}>No Holiday Today</Typography>
-          </Grid>
+          {this.getHeading()}
         </Grid>
         <Grid container justify={"center"} alignItems={"center"}>
           <Grid item lg={8} md={8} xs={12}>
-            <Tabs switchContent={this.switchContent}/>
+            <Tabs switchContent={this.switchContent} />
           </Grid>
         </Grid>
         <Grid container justify={"center"} alignItems={"center"} className={classes.center}>

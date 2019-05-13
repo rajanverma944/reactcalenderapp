@@ -62,11 +62,14 @@ class Teams extends Component {
                 Object.keys(this.state.data).map((item, idx) => {
                     const currDate = new Date();
                     const date = new Date(item);
+                    if ( currDate.toDateString() === date.toDateString() ) 
+                        this.props.todayIsHoliday(this.state.data[item]);
+
                     if (!this.props.invert && date < currDate)
                         return (<></>);
                     else if (this.props.invert && date > currDate)
                         return (<></>);
-
+    
                     return (
                         <Grid item md={4} lg={3} xs={12} key={idx}>
                             <Typography variant="h4" onClick={(e) => this.openModal(e, idx)}>
