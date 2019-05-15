@@ -51,7 +51,7 @@ class CustomModal extends Component {
                                 return (
                                     <>
                                         <Grid item md={9} lg={8} xs={12} key={idx}>
-                                            <Typography variant={"h4"}>
+                                            <Typography variant={"h4"} style={{fontWeight: "bold"}}>
                                                 {this.props.data[val].name}
                                             </Typography>
                                         </Grid>
@@ -66,7 +66,7 @@ class CustomModal extends Component {
                                                 ))}
                                             </Grid>
                                         </Grid>
-                                        <Grid item md={9} lg={8} xs={12} key={idx}>
+                                        <Grid item md={9} lg={8} xs={12} key={idx} style={{fontSize:'20px'}}>
                                             {this.props.data[val].description}
                                         </Grid>
                                     </>

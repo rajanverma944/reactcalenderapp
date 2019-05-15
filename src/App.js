@@ -49,7 +49,7 @@ class App extends React.Component {
                     </Typography>
                   </Grid>
                   <Grid item md={9} lg={8} xs={12} key={idx}>
-                    <Typography variant={"h4"}>
+                    <Typography variant={"h4"} style={{fontWeight: "bold"}}>
                       {this.state.data[val].name}
                     </Typography>
                   </Grid>
