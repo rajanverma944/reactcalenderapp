@@ -36,15 +36,23 @@ class Teams extends Component {
                         }
                     });
                     this.setState((oldState) => ({ ...oldState, data: temp, loading: false }))
-                });
+                }).catch(error=> { this.setState({loading:"d"})});
+  }
         }
-    }
+
     getLoadingScreen = () => (
-        <Grid item lg={3} md={4} xs={12} style={{ margin: "0 auto", textAlign: "center" }}>
+        <Grid item lg={6} md={8} xs={12} style={{ margin: "0 auto", textAlign: "center" }}>
             <Typography variant="h2">
                 Loading
             </Typography>
         </Grid>
+    )
+    getErrorScreen=()=>(
+      <Grid item lg={12} md={24} xs={24} style={{ margin: "0 auto", textAlign: "center" }}>
+          <Typography variant="h3">
+        Error Loading Data
+          </Typography>
+      </Grid>
     )
     openModal = (e, idx) => {
         const modals = this.state.modals;
@@ -62,14 +70,14 @@ class Teams extends Component {
                 Object.keys(this.state.data).map((item, idx) => {
                     const currDate = new Date();
                     const date = new Date(item);
-                    if ( currDate.toDateString() === date.toDateString() ) 
+                    if ( currDate.toDateString() === date.toDateString() )
                         this.props.todayIsHoliday(this.state.data[item]);
 
                     if (!this.props.invert && date < currDate)
                         return (<></>);
                     else if (this.props.invert && date > currDate)
                         return (<></>);
-    
+
                     return (
                         <Grid item md={4} lg={3} xs={12} key={idx}>
                             <Typography variant="h4" onClick={(e) => this.openModal(e, idx)}>
@@ -89,7 +97,8 @@ class Teams extends Component {
         return (
             <Paper>
                 {
-                    this.state.loading ? this.getLoadingScreen() : this.getFetchedData()
+             (this.state.loading === true) ?  this.getLoadingScreen() : (this.state.loading === false) ? this.getFetchedData() : this.getErrorScreen()
+
                 }
             </Paper>
         )
