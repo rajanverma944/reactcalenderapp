@@ -7,7 +7,7 @@ class MyTabs extends Component {
     state = {
         value: 0
     }
-
+//sets the state variable value to new value and then passes it further
     handleChange = (event, newValue) => {
         this.setState({ value: newValue }, () => this.props.switchContent(newValue));
     }

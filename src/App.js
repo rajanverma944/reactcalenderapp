@@ -30,7 +30,7 @@ class App extends React.Component {
     if (!this.state.isTodayAHoliday)
       this.setState((oldState) => ({ ...oldState, isTodayAHoliday: true, data: item }), () => console.log(this.state))
   }
-
+//check if the current date is holdiay or not
   getHeading = () => {
     if (this.state.isTodayAHoliday)
       return (
@@ -58,7 +58,7 @@ class App extends React.Component {
                       {this.state.data[val].type.map((val, idx) => (
                         <>
                           <Grid item key={idx}>
-                            <Chip label={val} color={"primary"} />
+                            <Chip label={val} color={"secondary"} />
                           </Grid>
                         </>
                       ))}
@@ -83,6 +83,8 @@ class App extends React.Component {
         </Grid>
       )
   }
+
+  // helps switch the  tabs using state variable and terniary operator
   getContent = () => this.state.selectedTab === 0 ? <Calender todayIsHoliday={this.todayIsHoliday} /> : <Calender invert todayIsHoliday={this.todayIsHoliday} />
 
   render() {

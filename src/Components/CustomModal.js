@@ -74,7 +74,7 @@ class CustomModal extends Component {
                             })
                         }
                         <Grid item md={9} lg={8} xs={12}>
-                            <Button variant={"contained"} color={'primary'} onClick={this.closeModal}>Close</Button>
+                            <Button variant={"contained"} color={"secondary"} onClick={this.closeModal}>Close</Button>
                         </Grid>
                     </Grid>
                 </Modal>

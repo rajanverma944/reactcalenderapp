@@ -39,14 +39,15 @@ class Teams extends Component {
                 }).catch(error=> { this.setState({loading:"d"})});
   }
         }
-
+// loads loading screen when called
     getLoadingScreen = () => (
-        <Grid item lg={6} md={8} xs={12} style={{ margin: "0 auto", textAlign: "center" }}>
+        <Grid item lg={12} md={4} xs={6} style={{ margin: "0 auto", textAlign: "center" }}>
             <Typography variant="h2">
-                Loading
+                Loading...
             </Typography>
         </Grid>
     )
+    // loads error screen if api call fails
     getErrorScreen=()=>(
       <Grid item lg={12} md={24} xs={24} style={{ margin: "0 auto", textAlign: "center" }}>
           <Typography variant="h3">
@@ -54,16 +55,19 @@ class Teams extends Component {
           </Typography>
       </Grid>
     )
+    //opens modal when grid elements are clicked
     openModal = (e, idx) => {
         const modals = this.state.modals;
         modals[idx] = true;
         this.setState((oldState) => ({ ...oldState, modals }));
     }
+      //closes modal when the close button is clicked
     closeModal = (idx) => {
         const modals = this.state.modals;
         modals[idx] = false;
         this.setState((oldState) => ({ ...oldState, modals }));
     }
+    //here it fetches current date of the system and then check if an holiday or not and then proceeds to check if its greater or smaller than it ,also then it attaches modals to each grid item.
     getFetchedData = () => (
         <Grid container wrap="wrap" style={{ textAlign: "center" }} spacing={40}>
             {
@@ -79,8 +83,8 @@ class Teams extends Component {
                         return (<></>);
 
                     return (
-                        <Grid item md={4} lg={3} xs={12} key={idx}>
-                            <Typography variant="h4" onClick={(e) => this.openModal(e, idx)}>
+                        <Grid item  lg={3} key={idx}>
+                            <Typography variant="h4" style={{fontWeight: "bold"}} onClick={(e) => this.openModal(e, idx)}>
                                 {new Date(item).toLocaleString("latn", this.options).split(" ").reverse()[0]}
                                 <Typography variant="h5">
                                     {new Date(item).toLocaleString("latn", this.options).split(" ").reverse()[1]}
